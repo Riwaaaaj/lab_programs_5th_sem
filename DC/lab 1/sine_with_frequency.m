@@ -1,0 +1,11 @@
+clc;
+clear;
+t = -5 : 0.01 : 5;
+f = 10;
+u = sin(2 * pi * f * t);
+plot(t, u, 'LineWidth', 2);
+xlabel('Time (t)');
+ylabel('u(t)');
+title('sine Signal with a certain frequency: Riwaj Karki');
+grid on;
+axis([-5, 5, -2, 2]);
