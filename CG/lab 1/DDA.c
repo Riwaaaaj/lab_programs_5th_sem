@@ -1,15 +1,11 @@
 #include <stdio.h>
 #include <graphics.h>
+#include <conio.h>
 #include <math.h>
 
 // Function to round a float to the nearest integer
 int roundoff(float x) {
     return (int)(x + 0.5);
-}
-
-// Function to get absolute value of a float
-float absolute(float x) {
-    return (x < 0) ? -x : x;
 }
 
 int main() {
@@ -19,6 +15,7 @@ int main() {
 
     // Initialize graphics mode
     initgraph(&gd, &gm, "C:\\TurboC3\\BGI");
+    clrscr();
 
     // Input coordinates
     printf("Enter the initial coordinates (x1, y1): ");
@@ -32,10 +29,10 @@ int main() {
     dy = y2 - y1;
 
     // Determine number of steps
-    if (absolute(dx) > absolute(dy))
-        steps = absolute(dx);
+    if (fabs(dx) > fabs(dy))
+        steps = fabs(dx);
     else
-        steps = absolute(dy);
+        steps = fabs(dy);
 
     // Calculate increments
     delx = dx / steps;
@@ -45,18 +42,27 @@ int main() {
     x = x1;
     y = y1;
 
+    printf("\n");
     // DDA line drawing
     for (k = 0; k <= steps; k++) {
-        putpixel(roundoff(x), roundoff(y), RED);
         x += delx;
         y += dely;
+        steps = fabs(dy);
+    }
+    delx = dx / steps;
+    dely = dy / steps;
+    x = x1;
+    y = y1;
+    for (k = 0; k <= steps; k++) {
+        x += delx;
+        y += dely;
+        // Draw pixel
+        putpixel(roundoff(x), roundoff(y), WHITE);
+        delay(100);
     }
 
-    // Wait for key press
-    getchar();
-
+    getch();
     // Close the graphics mode
     closegraph();
-    
     return 0;
 }
